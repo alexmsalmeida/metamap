@@ -1,4 +1,4 @@
-# metaMAP - mapping and quantifying genomes in metagenomes
+# metaMAP - quantifying microbial genomes in metagenomes
 
 [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) workflow to map and quantify prevalence and abundance of genomes in metagenomes.
 
@@ -30,7 +30,7 @@ snakemake --use-conda -k -j 100 --cluster-config cluster.yml --cluster 'bsub -n 
 
 The main output is located in the directory `summary/` which contains four files:
 
-* bwa_counts-total.csv: read counts per genome across all samples including multi-mapped reads.
-* bwa_counts-unique.csv: read counts per genome across all samples excluding multi-mapped reads.
-* bwa_cov-est.csv: breadth of coverage per genome across all samples.
-* bwa_cov-exp.csv: expected breadth of coverage per genome across all samples based on their level of read depth. This calculation is further discussed [here](https://instrain.readthedocs.io/en/latest/important_concepts.html#detecting-organisms-in-metagenomic-data).
+* `bwa_counts-total.csv`: read counts per genome across all samples including multi-mapped reads.
+* `bwa_counts-unique.csv`: read counts per genome across all samples excluding multi-mapped reads.
+* `bwa_cov-est.csv`: breadth of coverage per genome across all samples.
+* `bwa_cov-exp.csv`: expected breadth of coverage per genome across all samples based on their level of read depth. This calculation is further discussed [here](https://instrain.readthedocs.io/en/latest/important_concepts.html#detecting-organisms-in-metagenomic-data).
