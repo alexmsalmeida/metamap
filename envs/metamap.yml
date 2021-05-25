@@ -1,0 +1,7 @@
+name: metamap
+channels:
+  - bioconda
+dependencies:
+  - bwa
+  - samtools=1.9
+  - pysam

@@ -1,0 +1,30 @@
+__default__:
+    mem: 5000
+    nCPU: 8
+    name: "{rule}"
+    output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
+
+bwa_mem:
+    mem : 40000
+    nCPU: 8
+    output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
+
+samtools_sort:
+    mem : 20000
+    nCPU: 8
+    output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
+
+parse_cov:
+    mem : 5000
+    nCPU: 1
+    output: "{OUTPUT_DIR}/summary/logs/{rule}.log"
+
+parse_expcov:
+    mem : 5000
+    nCPU: 1
+    output: "{OUTPUT_DIR}/summary/logs/{rule}.log"
+
+parse_counts:
+    mem : 5000
+    nCPU: 1
+    output: "{OUTPUT_DIR}/summary/logs/{rule}.log"
