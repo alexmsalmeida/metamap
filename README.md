@@ -1,4 +1,4 @@
-# metaMAP - quantifying microbial genomes in metagenomes
+# metaMAP - quantifying genomes in metagenomes
 
 [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) workflow to map and quantify prevalence and abundance of genomes in metagenomes.
 
