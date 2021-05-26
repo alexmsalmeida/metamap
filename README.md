@@ -2,7 +2,7 @@
 
 [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) workflow to map and quantify prevalence and abundance of genomes in metagenomes.
 
-Paired metagenomic reads are mapped to a genome database with [BWA](http://bio-bwa.sourceforge.net/) and reads are filtered based on nucleotide identity, mapping score and alignment fraction with [SAMtools](http://www.htslib.org/). Read counts, coverage and depth are calculated per genome for each metagenome and final summary files are generated across samples. Some of these concepts are discussed in great detail by Matt Olm (developer of [dRep](https://drep.readthedocs.io/en/latest/) and [inStrain](https://instrain.readthedocs.io/en/latest/index.html)) [here](https://instrain.readthedocs.io/en/latest/important_concepts.html#an-overview-of-instrain-and-the-data-it-generates).
+Paired metagenomic reads are mapped to a genome database with [BWA](http://bio-bwa.sourceforge.net/) and filtered based on nucleotide identity, mapping score and alignment fraction with [SAMtools](http://www.htslib.org/). Read counts, coverage and depth are calculated per genome for each metagenome and final summary files are generated across samples. Some of these concepts are discussed in great detail by Matt Olm (developer of [dRep](https://drep.readthedocs.io/en/latest/) and [inStrain](https://instrain.readthedocs.io/en/latest/index.html)) [here](https://instrain.readthedocs.io/en/latest/important_concepts.html#an-overview-of-instrain-and-the-data-it-generates).
 
 ## Installation
 
