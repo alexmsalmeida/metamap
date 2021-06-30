@@ -1,7 +1,6 @@
 # snakemake workflow for mapping metagenomes against reference database
 
 import os
-import glob
 
 # preparing files
 configfile: "config.yml"
@@ -31,108 +30,28 @@ if not os.path.exists(OUTPUT_DIR+"/summary/logs"):
 # rule that specifies the final expected output files
 rule all:
     input:
-        expand(OUTPUT_DIR+"/mapping/{sample}/done.txt", sample=samp2path.keys()),
         OUTPUT_DIR+"/summary/bwa_cov-est.csv",
         OUTPUT_DIR+"/summary/bwa_cov-exp.csv",
         OUTPUT_DIR+"/summary/bwa_counts-total.csv",
         OUTPUT_DIR+"/summary/bwa_counts-unique.csv"
 
 # map metagenomes
-rule bwa_mem:
+rule map2ref:
     input:
         fwd = lambda wildcards: samp2path[wildcards.sample][0],
         rev = lambda wildcards: samp2path[wildcards.sample][1]
     output:
-        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_raw.bam"
+        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_total.tab",
+        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_unique.tab"
     params:
+        outpref = OUTPUT_DIR+"/mapping/{sample}/{sample}",
         bwa_db = config["database"]["bwa_db"],
+        reftype = config["database"]["type"]
     conda:
         "envs/metamap.yml"
     shell:
         """
-        bwa mem -M -t 8 {params.bwa_db} {input.fwd} {input.rev} | samtools view -@ 7 -F 256 -uS - > {output}
-        """
-
-# parse with samtools
-rule samtools_sort:
-    input:
-        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_raw.bam"
-    output:
-        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_raw_sorted.bam"
-    params:
-        tmp = lambda wildcards: glob.glob(os.path.join(OUTPUT_DIR, "mapping", wildcards.sample, "*bam.tmp*"))
-    conda:
-        "envs/metamap.yml"
-    shell:
-        """
-        rm -rf {params.tmp}
-        samtools sort -@ 7 {input} -o {output}
-        """
-
-rule samtools_filter_alns:
-    input:
-        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_raw_sorted.bam"
-    output:
-        idx = OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_raw_sorted.bam.bai",
-        bam = OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_total_sorted.bam",
-        bai = OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_total_sorted.bam.bai"
-    conda:
-        "envs/metamap.yml"
-    shell:
-        """
-        samtools index -@ 7 {input}
-        tools/bam_ani-filter.py {input} 90 60 | samtools view -u - -o {output.bam}
-        samtools index -@ 7 {output.bam}
-        """
-
-rule samtools_extract_unique:
-    input:
-        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_total_sorted.bam"
-    output:
-        bam = OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_unique_sorted.bam",
-        bai = OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_unique_sorted.bam.bai"
-    conda:
-        "envs/metamap.yml"
-    shell:
-        """
-        samtools view -@ 7 -q 1 -f 2 -u {input} -o {output.bam}
-        samtools index -@ 7 {output.bam}
-        """
-
-rule samtools_idx:
-    input:
-        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_{type}_sorted.bam"
-    output:
-        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_{type}_depth.tab"
-    conda:
-        "envs/metamap.yml"    
-    shell:
-        "samtools idxstats {input} > {output}"
-
-rule samtools_depth:
-    input:
-        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_{type}_sorted.bam"
-    output:
-        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_{type}_depth-pos.tab"
-    conda:
-        "envs/metamap.yml"    
-    shell:
-        "samtools depth {input} > {output}"
-
-rule samtools_combine:
-    input:
-        depth = OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_{type}_depth.tab",
-        pos = OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_{type}_depth-pos.tab"
-    output:
-        OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_{type}.tab"
-    params:
-        reftype = config["database"]["type"],
-        suffix = "_"+REFNAME,
-    conda:
-        "envs/metamap.yml"
-    shell:
-        """
-        tools/parse_bwa-depth.py {input.depth} {input.pos} {params.reftype} {params.suffix} > {output}
+        tools/map2ref.sh -t 8 -i {input.fwd} -n {input.rev} -r {params.bwa_db} -o {params.outpref} -c {params.reftype}
         """
 
 # parse final output
@@ -177,16 +96,3 @@ rule parse_counts:
         """
         tools/parse_bwa-counts.py -i {params.outdir} -f {wildcards.type} -o {output}
         """
-
-# clean tmp
-rule clean_tmp:
-    input:
-        lambda wildcards: expand(OUTPUT_DIR+"/mapping/{sample}/{sample}_"+REFNAME+"_{type}.tab", sample=wildcards.sample, type=["unique", "total"])
-    output:
-        touch(OUTPUT_DIR+"/mapping/{sample}/done.txt")
-    params:
-        raw = lambda wildcards: glob.glob(os.path.join(OUTPUT_DIR, "mapping", wildcards.sample, "*raw*")),
-        sort = lambda wildcards: glob.glob(os.path.join(OUTPUT_DIR, "mapping", wildcards.sample, "*sorted*")),
-        depth = lambda wildcards: glob.glob(os.path.join(OUTPUT_DIR, "mapping", wildcards.sample, "*depth*"))
-    shell:
-        "rm -rf {params.raw} {params.sort} {params.depth}"
