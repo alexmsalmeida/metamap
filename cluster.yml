@@ -4,13 +4,8 @@ __default__:
     name: "{rule}"
     output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
 
-bwa_mem:
+map2ref:
     mem : 40000
-    nCPU: 8
-    output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
-
-samtools_sort:
-    mem : 20000
     nCPU: 8
     output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
 
