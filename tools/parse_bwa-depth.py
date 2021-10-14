@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 import os
 import sys
@@ -6,7 +6,7 @@ import math
 import numpy
 
 if len(sys.argv) < 3:
-    print "usage: script.py bwa_depth.tab bwa_depth-pos.tab mode[contigs/complete] suffix"
+    print("usage: script.py bwa_depth.tab bwa_depth-pos.tab mode[contigs/complete] suffix")
     sys.exit()
 
 name = os.path.basename(sys.argv[1]).split(sys.argv[4])[0]
@@ -41,7 +41,7 @@ with open(sys.argv[2], "r") as f:
             depth = int(cols[2]) # depth of covered position
             spec_stats[species][2].append(depth)
 
-print "Genome\t%s_Length\t%s_Counts\t%s_MeanDepth\t%s_Coverage\t%s_ExpCoverage\t%s_CoeffVar" % (name, name, name, name, name, name)
+print(f"Genome\t{name}_Length\t{name}_Counts\t{name}_MeanDepth\t{name}_Coverage\t{name}_ExpCoverage\t{name}_CoeffVar")
 
 # combine stats and print per species
 for species in spec_stats.keys():
@@ -62,5 +62,4 @@ for species in spec_stats.keys():
     else:
         expCov = 0
         cV = 0
-    print "%s\t%i\t%i\t%.2f\t%.2f\t%.2f\t%.2f" % (species, length, counts, meanDepth, coverage, expCov, cV)
-            
+    print(f"{species}\t{length}\t{counts}\t{meanDepth:.2f}\t{coverage:.2f}\t{expCov:.2f}\t{cV:.2f}")
