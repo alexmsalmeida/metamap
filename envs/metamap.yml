@@ -2,6 +2,7 @@ name: metamap
 channels:
   - bioconda
 dependencies:
+  - numpy
   - bwa
   - samtools=1.9
   - pysam
