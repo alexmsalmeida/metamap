@@ -1,14 +1,14 @@
 __default__:
-    queue: "skylake"
+    queue: "icelake-himem"
     mem: 5000
     nCPU: 1
     name: "{rule}"
     output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
 
 map2ref:
-    queue: "skylake-himem"
+    queue: "icelake-himem"
     mem : 40000
-    nCPU: 4
+    nCPU: 6
     output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
 
 parse_cov:
