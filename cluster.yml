@@ -1,25 +1,21 @@
 __default__:
+    queue: "skylake"
     mem: 5000
-    nCPU: 8
+    nCPU: 1
     name: "{rule}"
     output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
 
 map2ref:
+    queue: "skylake-himem"
     mem : 40000
-    nCPU: 8
+    nCPU: 4
     output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
 
 parse_cov:
-    mem : 5000
-    nCPU: 1
     output: "{OUTPUT_DIR}/summary/logs/{rule}.log"
 
 parse_expcov:
-    mem : 5000
-    nCPU: 1
     output: "{OUTPUT_DIR}/summary/logs/{rule}.log"
 
 parse_counts:
-    mem : 5000
-    nCPU: 1
     output: "{OUTPUT_DIR}/summary/logs/{rule}.log"

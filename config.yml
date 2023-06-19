@@ -1,11 +1,11 @@
 # Required arguments
 
 input:
-    "test/input.tsv" # two-column file pointing to _1.fastq.gz and _2.fastq.gz files
+    "/rds/project/rds-aFEMMKDjWlo/temp_datasets/PRJDB4176/test/test/test_clean/fastq_paths.txt" # two-column file pointing to _1.fastq.gz and _2.fastq.gz files
 
 output: 
-    "test/output" # output directory to store results
+    "/rds/project/rds-aFEMMKDjWlo/temp_datasets/PRJDB4176/test/test/test_clean/mapping" # output directory to store results
 
 database: 
-    bwa_db: "/hps/nobackup2/production/metagenomics/aalmeida/project_latinbiota/databases/proks_euks/uhgg-combined.fa" # combined fasta file indexed with BWA
+    bwa_db: "/rfs/project/rfs-42V0sRc5Rk8/databases/bwa/uhgg-latinbiota/uhgg.fa" # combined fasta file indexed with BWA
     type: "contigs" # contigs or complete
