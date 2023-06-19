@@ -1,3 +1,3 @@
-/hps/nobackup2/production/metagenomics/aalmeida/scripts/EMBL-EBI/snakemake_wfs/metamap/test/input/31005_1_17_clean_1.fastq.gz	/hps/nobackup2/production/metagenomics/aalmeida/scripts/EMBL-EBI/snakemake_wfs/metamap/test/input/31005_1_17_clean_2.fastq.gz
-/hps/nobackup2/production/metagenomics/aalmeida/scripts/EMBL-EBI/snakemake_wfs/metamap/test/input/37082_1_16_clean_1.fastq.gz	/hps/nobackup2/production/metagenomics/aalmeida/scripts/EMBL-EBI/snakemake_wfs/metamap/test/input/37082_1_16_clean_2.fastq.gz
-/hps/nobackup2/production/metagenomics/aalmeida/scripts/EMBL-EBI/snakemake_wfs/metamap/test/input/37082_3_5_clean_1.fastq.gz	/hps/nobackup2/production/metagenomics/aalmeida/scripts/EMBL-EBI/snakemake_wfs/metamap/test/input/37082_3_5_clean_2.fastq.gz
+/nfs/research1/finn/sequencing_data/fastq-files/human_gut/ERP012803/ERR5532529_1.fastq.gz	/nfs/research1/finn/sequencing_data/fastq-files/human_gut/ERP012803/ERR5532529_2.fastq.gz
+/nfs/research1/finn/sequencing_data/fastq-files/human_gut/ERP012803/ERR5532591_1.fastq.gz	/nfs/research1/finn/sequencing_data/fastq-files/human_gut/ERP012803/ERR5532591_2.fastq.gz
+/nfs/research1/finn/sequencing_data/fastq-files/human_gut/ERP012803/ERR5532592_1.fastq.gz	/nfs/research1/finn/sequencing_data/fastq-files/human_gut/ERP012803/ERR5532592_2.fastq.gz

@@ -78,6 +78,7 @@ fi
 
 # initial mapping and sorting
 echo "$(timestamp) [ map2ref pipeline ] Running BWA ..."
+rm -f ${outprefix}_${refix}*bam*
 bwa mem -M -t ${threads} ${ref} ${reads} ${reads2} | samtools view -@ ${threads_sam} -F 256 -uS - | samtools sort -@ ${threads_sam} - -o ${outprefix}_${refix}_raw.bam
 samtools index -@ ${threads_sam} ${outprefix}_${refix}_raw.bam
 tools/bam_ani-filter.py ${outprefix}_${refix}_raw.bam 90 60 | samtools view -u - -o ${outprefix}_${refix}_sorted.bam
