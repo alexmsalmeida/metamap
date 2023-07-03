@@ -1,6 +1,8 @@
 __default__:
     queue: "icelake-himem"
+    project: "ALMEIDA-SL3-CPU"
     mem: 5000
+    time: "12:00:00"
     nCPU: 1
     name: "{rule}"
     output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
