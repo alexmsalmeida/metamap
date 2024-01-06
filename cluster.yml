@@ -1,23 +1,30 @@
 __default__:
     queue: "icelake-himem"
-    project: "ALMEIDA-SL3-CPU"
+    project: "ALMEIDA-SL2-CPU"
     mem: 5000
-    time: "12:00:00"
+    time: "36:00:00"
     nCPU: 1
     name: "{rule}"
     output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
 
 map2ref:
     queue: "icelake-himem"
-    mem : 40000
-    nCPU: 6
+    time: "36:00:00"
+    mem : 50000
+    nCPU: 16
     output: "{OUTPUT_DIR}/mapping/{wildcards.sample}/logs/{rule}.log"
 
 parse_cov:
     output: "{OUTPUT_DIR}/summary/logs/{rule}.log"
+    mem: 40000
+    nCPU: 8
 
 parse_expcov:
     output: "{OUTPUT_DIR}/summary/logs/{rule}.log"
+    mem: 40000
+    nCPU: 8
 
 parse_counts:
     output: "{OUTPUT_DIR}/summary/logs/{rule}.log"
+    mem: 40000
+    nCPU: 8

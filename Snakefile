@@ -51,7 +51,7 @@ rule map2ref:
         "envs/metamap.yml"
     shell:
         """
-        tools/map2ref.sh -t 8 -i {input.fwd} -n {input.rev} -r {params.bwa_db} -o {params.outpref} -c {params.reftype}
+        tools/map2ref.sh -t 16 -i {input.fwd} -n {input.rev} -r {params.bwa_db} -o {params.outpref} -c {params.reftype}
         """
 
 # parse final output
