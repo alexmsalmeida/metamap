@@ -17,7 +17,7 @@ git clone https://github.com/alexmsalmeida/metamap.git
 
 1. Edit `config.yml` file to point to the <b>input</b>, <b>output</b> and <b>database</b> directories/files. Input file should contain tab-separated columns with the paths to the forward and reverse reads of each metagenome to map (ending in `_1.fastq.gz` and `_2.fastq.gz`, respectively). The <b>database</b> folder should point to a multi-FASTA file containing the reference genomes, indexed with [BWA](http://bio-bwa.sourceforge.net/) (`bwa index`). If mapping to a reference database where each sequence represents its own genome (i.e, when mapping against a viral sequence catalog) change the option `type` in the `config.yml` from "contigs" to "complete". 
 
-If using the "contigs" option with a combined set of reference genomes make sure the names of the contigs in the final FASTA file are structured as [genome_name]_1, [genome_name]_2, etc. You can use the `rename_multifasta_prefix.py` script here provided in the `tools/` folder to rename each genome file before concatenating.
+  If using the "contigs" option with a combined set of reference genomes make sure the names of the contigs in the final FASTA file are structured as [genome_name]_1, [genome_name]_2, etc. You can use the `rename_multifasta_prefix.py` script here provided in the `tools/` folder to rename each genome file before concatenating.
 
 2. (option 1) Run the pipeline locally (adjust `-j` based on the number of available cores)
 ```
